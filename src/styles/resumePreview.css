@@ -1,5 +1,7 @@
 .a4Preview{
-    height: 90vh;
+    height: 80vh;
     aspect-ratio: 1 / 1.414;
     background-color: white;
+
+    margin: 10vh 5vw;
 }
