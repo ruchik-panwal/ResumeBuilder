@@ -12,15 +12,18 @@ export function ResumeEditor() {
 
 
 
-// This Function Handles the persnal detail Form
+// This Function Handles the personal detail Form
 function PersonalDetails() {
+
+  // Thsi UseState checks on the value of inputs
   const [value, setValue] = useState({
     personName: "",
     personEmail: "",
     personNumber: "",
   });
 
-  function dataCollector(val, id) {
+  // This changes the input field and stores the state
+  function inputChange(val, id) {
     let details = { ...value };
     for (const key in details) {
       if (key == id) details[key] = val;
@@ -28,6 +31,7 @@ function PersonalDetails() {
     setValue(details);
   }
 
+  // Clears the Input fields when clicked
   function clearBtn() {
     let details = { ...value };
     for (const key in details) {
@@ -36,8 +40,9 @@ function PersonalDetails() {
     setValue(details);
   }
 
-  function submitBtn(obj) {
-  console.log(obj);
+  // Collects and sends the data when submit button is pressed
+  function dataCollector(obj) {
+  console.log(obj); //Temp
 }
 
   return (
@@ -50,7 +55,7 @@ function PersonalDetails() {
           id="personName"
           value={value.personName}
           onChange={(event) =>
-            dataCollector(event.target.value, event.target.id)
+            inputChange(event.target.value, event.target.id)
           }
         />
       </div>
@@ -62,7 +67,7 @@ function PersonalDetails() {
           id="personEmail"
           value={value.personEmail}
           onChange={(event) =>
-            dataCollector(event.target.value, event.target.id, event.id)
+            inputChange(event.target.value, event.target.id, event.id)
           }
         />
       </div>
@@ -74,7 +79,7 @@ function PersonalDetails() {
           id="personNumber"
           value={value.personNumber}
           onChange={(event) =>
-            dataCollector(event.target.value, event.target.id, event.id)
+            inputChange(event.target.value, event.target.id, event.id)
           }
         />
       </div>
@@ -93,7 +98,7 @@ function PersonalDetails() {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            submitBtn(value);
+            dataCollector(value);
           }}
         >
           Save
