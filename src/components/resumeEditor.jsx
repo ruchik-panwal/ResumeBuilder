@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ResumePreview } from "./resumePreview";
 import "/src/styles/resumeEditor.css";
 
 export function ResumeEditor() {
@@ -10,11 +9,8 @@ export function ResumeEditor() {
   );
 }
 
-
-
 // This Function Handles the personal detail Form
 function PersonalDetails() {
-
   // Thsi UseState checks on the value of inputs
   const [value, setValue] = useState({
     personName: "",
@@ -40,11 +36,6 @@ function PersonalDetails() {
     setValue(details);
   }
 
-  // Collects and sends the data when submit button is pressed
-  function dataCollector(obj) {
-  console.log(obj); //Temp
-}
-
   return (
     <form>
       <h1>Personal Details</h1>
@@ -54,9 +45,7 @@ function PersonalDetails() {
           type="text"
           id="personName"
           value={value.personName}
-          onChange={(event) =>
-            inputChange(event.target.value, event.target.id)
-          }
+          onChange={(event) => inputChange(event.target.value, event.target.id)}
         />
       </div>
 
@@ -98,7 +87,6 @@ function PersonalDetails() {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            dataCollector(value);
           }}
         >
           Save
