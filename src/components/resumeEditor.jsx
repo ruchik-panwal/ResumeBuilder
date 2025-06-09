@@ -1,16 +1,34 @@
 import { useState } from "react";
 import "/src/styles/resumeEditor.css";
 
-export function ResumeEditor() {
+export function ResumeEditor({ getResumeData, previewData }) {
+  const [counter, setCounter] = useState(5);
+
+  // Stores the Data taken from the form to the resume Data updating the state
+  function printValue(val, id) {
+    let newData = {...previewData};
+
+    // 
+    if (newData[id]?.children?.length != 0) {
+      newData[newData[id]?.children[0]] = val;
+    } else {
+      newData[id].children[0] = counter;
+      newData[counter] = val;
+      setCounter(counter + 1);
+    }
+    getResumeData(newData);
+  }
+
+  // Returning the data from the form
   return (
     <div className="resumeEditor">
-      <PersonalDetails />
+      <PersonalDetails onBtnClick={printValue} />
     </div>
   );
 }
 
 // This Function Handles the personal detail Form
-function PersonalDetails() {
+function PersonalDetails({ onBtnClick }) {
   // Thsi UseState checks on the value of inputs
   const [value, setValue] = useState({
     personName: "",
@@ -21,7 +39,7 @@ function PersonalDetails() {
   // This changes the input field and stores the state
   function inputChange(val, id) {
     let details = { ...value };
-    for (const key in details) {
+    for (const key in details) { 
       if (key == id) details[key] = val;
     }
     setValue(details);
@@ -87,6 +105,7 @@ function PersonalDetails() {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
+            onBtnClick(value, 0);
           }}
         >
           Save
