@@ -2,11 +2,22 @@
 export let mainData = {
   0: {
     name: "personalDetails",
-    Children: [],
-    inputs: {
-      personName: "",
-      personEmail: "",
-      personNumber: "",
-    },
+    children: [],
+  },
+  1: {
+    name: "experience",
+    children: [],
+  },
+  2: {
+    name: "education",
+    children: [],
+  },
+  3: {
+    name: "projects",
+    children: [],
+  },
+  4: {
+    name: "skills",
+    children: [],
   },
 };
