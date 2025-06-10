@@ -31,7 +31,8 @@ function PerDetailsBuilder({ personalData, previewData }) {
 
       {(domObj.personEmail || domObj.personNumber) && (
         <div>
-          {domObj.personEmail && <p>{domObj.personEmail}</p>}
+          {domObj.personEmail && <p>{domObj.personEmail}</p>} 
+          {<p>|</p>}
           {domObj.personNumber && <p>{domObj.personNumber}</p>}
         </div>
       )}
