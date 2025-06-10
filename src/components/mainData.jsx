@@ -21,3 +21,10 @@ export let mainData = {
     children: [],
   },
 };
+
+
+export const educationInputs = ["Institute", "Degree", "Year", "Location", "Start Date", "End Date"];
+
+export const experienceInputs = ["Role", "Company", "Start Date", "End Date", "Description"]
+
+export const projectInputs = ["Title", "Tech Stack", "Description"]
