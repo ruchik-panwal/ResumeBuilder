@@ -23,8 +23,25 @@ export let mainData = {
 };
 
 
-export const educationInputs = ["Institute", "Degree", "Year", "Location", "Start Date", "End Date"];
+export const educationInputs = {
+  Institute: "",
+  Degree: "",
+  Year: "",
+  Location: "",
+  StartDate: "",
+  EndDate: "",
+};
 
-export const experienceInputs = ["Role", "Company", "Start Date", "End Date", "Description"]
+export const experienceInputs = {
+  Role: "",
+  Company: "",
+  StartDate: "",
+  EndDate: "",
+  Description: "",
+};
 
-export const projectInputs = ["Title", "Tech Stack", "Description"]
+export const projectInputs = {
+  Title: "",
+  TechStack: "",
+  Description: "",
+};
