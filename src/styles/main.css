@@ -3,6 +3,7 @@ body{
     margin: 0;
     box-sizing: border-box;
     width: 100vw;
+    font-family: "Roboto";
     background-color: var(--bgc);
 }
 
@@ -10,4 +11,12 @@ body{
     box-sizing: border-box;
     width: 100%;
     display: flex;
+}
+
+h1, 
+h2,
+h3,
+p{
+    margin: 0;
+    padding: 0;
 }
