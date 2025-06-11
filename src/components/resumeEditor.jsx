@@ -25,9 +25,9 @@ export function ResumeEditor({ getResumeData, previewData }) {
   return (
     <div className="resumeEditor">
       <Personal onBtnClick={printValue} />
-      <Experience />
-      <Projects />
-      <Education />
+      <WrapBuilder cName="experienceWrap" title={"Experience Details"} uid={"exp1"} inObj = {experienceInputs}/>
+      <WrapBuilder cName="educationWrap" title={"Education Details"} uid={"ed1"} inObj = {educationInputs}/>
+      <WrapBuilder cName="projectsWrap" title={"Project Details"} uid={"pro1"} inObj = {projectInputs}/>
       {/* <Skills /> */}
     </div>
   );
@@ -109,18 +109,12 @@ function Personal({ onBtnClick }) {
   );
 }
 
-function Experience() {
-  return (
-    <div className="experienceWrap">
-      <h1>Experience Details</h1>
-      <FormInpBuilder
-        uid="exp1"
-        inpField={Object.keys(experienceInputs)}
-        Input={experienceInputs}
-      />
-      <button>Add</button>
-    </div>
-  );
+function WrapBuilder({ cName , title, uid, inObj }){
+  return <div className={cName}>
+    <h1>{title}</h1>
+    <FormInpBuilder uid={uid} inpField={Object.keys(inObj)} Input={inObj} />
+    <button>Add</button>
+  </div>
 }
 
 function Education() {
