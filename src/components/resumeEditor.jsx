@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "/src/styles/resumeEditor.css";
 
-import { educationInputs, experienceInputs, projectInputs } from "./mainData";
+import { educationInputs, experienceInputs, projectInputs, skillInout } from "./mainData";
 
 // Creates Dom for all the Inputs and exports the main data to App.jsx which then transfer it to Preview Component
 export function ResumeEditor({ getResumeData, previewData }) {
@@ -46,6 +46,8 @@ export function ResumeEditor({ getResumeData, previewData }) {
         InUid={"EXP"}
         inObj={experienceInputs}
         onBtnClick={printValueExp}
+        getResumeData={getResumeData}
+        previewData={previewData}
       />
       <WrapBuilder
         cName="educationWrap"
@@ -53,6 +55,8 @@ export function ResumeEditor({ getResumeData, previewData }) {
         InUid={"EDU"}
         inObj={educationInputs}
         onBtnClick={printValueExp}
+        getResumeData={getResumeData}
+        previewData={previewData}
       />
       <WrapBuilder
         cName="projectsWrap"
@@ -60,8 +64,18 @@ export function ResumeEditor({ getResumeData, previewData }) {
         InUid={"PRO"}
         inObj={projectInputs}
         onBtnClick={printValueExp}
+        getResumeData={getResumeData}
+        previewData={previewData}
       />
-      {/* <Skills /> */}
+      <WrapBuilder
+        cName="skillsWrap"
+        title={"Skills Details"}
+        InUid={"SKI"}
+        inObj={skillInout}
+        onBtnClick={printValueExp}
+        getResumeData={getResumeData}
+        previewData={previewData}
+      />
     </div>
   );
 }
@@ -147,8 +161,30 @@ function Personal({ onBtnClick }) {
 }
 
 // Builds the wrapper for Exp, Edu and project fields
-function WrapBuilder({ cName, title, InUid, inObj, onBtnClick }) {
-  const [compId, setCompId] = useState([(InUid+0)]);
+function WrapBuilder({
+  cName,
+  title,
+  InUid,
+  inObj,
+  onBtnClick,
+  getResumeData,
+  previewData,
+}) {
+  const [compId, setCompId] = useState([InUid + 0]);
+
+  function rmForm(formId) {
+    let formIds = [...compId];
+    let mainData = { ...previewData };
+
+    formIds.forEach((id, index) => {
+      if (formId == id) {
+        formIds.splice(index, 1);
+        delete mainData[id];
+      }
+    });
+    setCompId(formIds);
+    getResumeData(mainData);
+  }
   return (
     <div className={cName}>
       <h1>{title}</h1>
@@ -158,10 +194,11 @@ function WrapBuilder({ cName, title, InUid, inObj, onBtnClick }) {
           <FormInpBuilder
             key={uid}
             uid={uid}
-            title={title + (ind+1)}
+            title={title + (ind + 1)}
             inpField={Object.keys(inObj)}
             Input={inObj}
             onBtnClick={onBtnClick} //referencing the function on parent Component
+            onRmBtnClick={rmForm}
           />
         );
       })}
@@ -169,7 +206,7 @@ function WrapBuilder({ cName, title, InUid, inObj, onBtnClick }) {
       <button
         onClick={(e) => {
           e.preventDefault();
-            const tempId = [...compId];
+          const tempId = [...compId];
           tempId.push(InUid + compId.length);
           setCompId(tempId);
         }}
@@ -190,14 +227,29 @@ function inputChange(val, id, value) {
 }
 
 // Builds the DOM for exp, edu and project form
-function FormInpBuilder({ uid, inpField, Input, title, onBtnClick }) {
+function FormInpBuilder({
+  uid,
+  inpField,
+  Input,
+  title,
+  onBtnClick,
+  onRmBtnClick,
+}) {
   const [value, setValue] = useState(Input);
 
   return (
     <form>
       <div className="formHeader">
         <h2 className="formTitle">{title}</h2>
-        <button className="removeForm">Remove</button>
+        <button
+          className="removeForm"
+          onClick={(e) => {
+            e.preventDefault();
+            onRmBtnClick(uid);
+          }}
+        >
+          Remove
+        </button>
       </div>
       {inpField.map((lab) => {
         const newID = uid + lab; // Creating a unique key
