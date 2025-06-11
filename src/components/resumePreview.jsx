@@ -4,17 +4,22 @@ import "/src/styles/resumePreview.css";
 export function ResumePreview({ previewData }) {
   return (
     <div className="a4Preview">
-      <PerDetailsBuilder previewData={previewData} /> {/* Displays Personal Detail */}  
+      <PerDetailsBuilder previewData={previewData} />{" "}
+      {/* Displays Personal Detail */}
     </div>
   );
 }
 
+// Function for displaying Personal Details
 function PerDetailsBuilder({ previewData }) {
+  // If there is no Personal Detail filled yet, Return nothing
   if (!previewData["PER"]) {
     return null;
   }
 
-  let domObj = previewData["PER"];
+  let domObj = previewData["PER"]; //Taking the OBJ for personal Detail
+
+  // If there is nothing inside the obj, return nothing
   if (
     domObj.personName == "" &&
     domObj.personNumber == "" &&
