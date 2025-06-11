@@ -3,38 +3,43 @@ import "/src/styles/resumeEditor.css";
 
 import { educationInputs, experienceInputs, projectInputs } from "./mainData";
 
+// Creates Dom for all the Inputs and exports the main data to App.jsx which then transfer it to Preview Component
 export function ResumeEditor({ getResumeData, previewData }) {
-  // const [counter, setCounter] = useState(5);
-  // const [compId, setCompId] = useState([""]);
-
-
-
   // Gets Data from Exp, Edu adn Project Forms
   function printValueExp(val, id) {
-    let newData = { ...previewData };
+    let newData = { ...previewData }; //Temp variable
+
+    // Data for comparing dynamically
     const indexObj = {
       1: "EXP",
       2: "EDU",
       3: "PRO",
       4: "SKI",
     };
-    newData[id] = val;
+    newData[id] = val; // Adds or replaces the object
 
+    // adds the address of the object to the main object Childres
     Object.keys(indexObj).forEach((cId) => {
-      if(id.slice(0,3) == indexObj[cId]){
-        if(!newData[cId].children.find(ele => ele == id)){
-          newData[cId].children.push(id);
+      //Iterating indexObj
+      if (id.slice(0, 3) == indexObj[cId]) {
+        //If ("EXP" == "EXP")
+        if (!newData[cId].children.find((ele) => ele == id)) {
+          // if the id does not exist in children
+          newData[cId].children.push(id); // push it
         }
       }
-    })
-    
-    getResumeData(newData);
+    });
+
+    getResumeData(newData); //Updating state
   }
 
   // Returning the data from the form
   return (
     <div className="resumeEditor">
+      {/* creating and getting personal Data */}
       <Personal onBtnClick={printValueExp} />
+
+      {/* All the other multiple inputs */}
       <WrapBuilder
         cName="experienceWrap"
         title={"Experience Details"}
@@ -79,8 +84,10 @@ function Personal({ onBtnClick }) {
           type="text"
           id="personName"
           value={value.personName}
-          onChange={(event) =>
-            setValue(inputChange(event.target.value, event.target.id, value))
+          onChange={
+            (event) =>
+              setValue(inputChange(event.target.value, event.target.id, value))
+            // Controling the input Fiels
           }
         />
       </div>
@@ -113,6 +120,7 @@ function Personal({ onBtnClick }) {
         <button
           onClick={(e) => {
             e.preventDefault();
+            // clears the state and puts defaulr
             setValue({
               personName: "",
               personEmail: "",
@@ -128,6 +136,7 @@ function Personal({ onBtnClick }) {
           onClick={(e) => {
             e.preventDefault();
             onBtnClick(value, "PER");
+            // sends the value objedt and type of data when submited
           }}
         >
           Save
@@ -144,6 +153,7 @@ function WrapBuilder({ cName, title, uid, inObj, onBtnClick }) {
       <h1>{title}</h1>
       <FormInpBuilder
         uid={uid}
+        title={title + "1"}
         inpField={Object.keys(inObj)}
         Input={inObj}
         onBtnClick={onBtnClick} //referencing the function on parent Component
@@ -163,14 +173,17 @@ function inputChange(val, id, value) {
 }
 
 // Builds the DOM for exp, edu and project form
-function FormInpBuilder({ uid, inpField, Input, onBtnClick }) {
+function FormInpBuilder({ uid, inpField, Input, title, onBtnClick }) {
   const [value, setValue] = useState(Input);
 
   return (
     <form>
+      <div className="formHeader">
+        <h2 className="formTitle">{title}</h2>
+        <button className="removeForm">Remove</button>
+      </div>
       {inpField.map((lab) => {
         const newID = uid + lab; // Creating a unique key
-
         return (
           <div key={newID}>
             <label htmlFor={newID}>{lab} : </label>
