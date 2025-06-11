@@ -44,3 +44,8 @@ export const projectInputs = {
   TechStack: "",
   Description: "",
 };
+
+export const skillInput = {
+  Title: "",
+  skills: "",
+};
