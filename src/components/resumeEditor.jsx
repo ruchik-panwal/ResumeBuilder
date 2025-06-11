@@ -41,7 +41,7 @@ export function ResumeEditor({ getResumeData, previewData }) {
       <WrapBuilder
         cName="educationWrap"
         title={"Education Details"}
-        uid={"ed1"}
+        uid={"edu1"}
         inObj={educationInputs}
         onBtnClick={printValueExp}
       />
