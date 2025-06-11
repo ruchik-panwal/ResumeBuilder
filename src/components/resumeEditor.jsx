@@ -4,51 +4,55 @@ import "/src/styles/resumeEditor.css";
 import { educationInputs, experienceInputs, projectInputs } from "./mainData";
 
 export function ResumeEditor({ getResumeData, previewData }) {
-  const [counter, setCounter] = useState(5);
+  // const [counter, setCounter] = useState(5);
+  // const [compId, setCompId] = useState([""]);
 
-  // Stores the Data taken from the form to the resume Data updating the state
-  function printValue(val, id) {
-    let newData = { ...previewData };
 
-    //
-    if (newData[id]?.children?.length != 0) {
-      newData[newData[id]?.children[0]] = val;
-    } else {
-      newData[id].children[0] = counter;
-      newData[counter] = val;
-      setCounter(counter + 1);
-    }
-    getResumeData(newData);
-  }
 
   // Gets Data from Exp, Edu adn Project Forms
   function printValueExp(val, id) {
-    console.log(val);
-    console.log(id);
+    let newData = { ...previewData };
+    const indexObj = {
+      1: "EXP",
+      2: "EDU",
+      3: "PRO",
+      4: "SKI",
+    };
+    newData[id] = val;
+
+    Object.keys(indexObj).forEach((cId) => {
+      if(id.slice(0,3) == indexObj[cId]){
+        if(!newData[cId].children.find(ele => ele == id)){
+          newData[cId].children.push(id);
+        }
+      }
+    })
+    
+    getResumeData(newData);
   }
 
   // Returning the data from the form
   return (
     <div className="resumeEditor">
-      <Personal onBtnClick={printValue} />
+      <Personal onBtnClick={printValueExp} />
       <WrapBuilder
         cName="experienceWrap"
         title={"Experience Details"}
-        uid={"exp1"}
+        uid={"EXP1"}
         inObj={experienceInputs}
         onBtnClick={printValueExp}
       />
       <WrapBuilder
         cName="educationWrap"
         title={"Education Details"}
-        uid={"edu1"}
+        uid={"EDU1"}
         inObj={educationInputs}
         onBtnClick={printValueExp}
       />
       <WrapBuilder
         cName="projectsWrap"
         title={"Project Details"}
-        uid={"pro1"}
+        uid={"PRO1"}
         inObj={projectInputs}
         onBtnClick={printValueExp}
       />
@@ -123,7 +127,7 @@ function Personal({ onBtnClick }) {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
-            onBtnClick(value, 0);
+            onBtnClick(value, "PER");
           }}
         >
           Save
@@ -200,7 +204,7 @@ function FormInpBuilder({ uid, inpField, Input, onBtnClick }) {
           onClick={(e) => {
             e.preventDefault();
             //Sends the value and first 3 letters of uid (i.e : exp1 -> exp) for identification
-            onBtnClick(value, uid.slice(0, 3));
+            onBtnClick(value, uid);
           }}
         >
           Submit
