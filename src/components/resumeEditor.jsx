@@ -273,7 +273,7 @@ function FormInpBuilder({
         </button>
       </div>
 
-      {inpField.map((lab) => {
+      {!hideState && inpField.map((lab) => {
         const newID = uid + lab; // Creating a unique key
         return (
           <div key={newID}>
@@ -292,6 +292,7 @@ function FormInpBuilder({
           </div>
         );
       })}
+
 
       <div className="buttonWrap">
         <button
