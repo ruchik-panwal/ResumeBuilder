@@ -1,23 +1,20 @@
 import "/src/styles/resumePreview.css";
 
+// Displays the FormInputs in an a4 sized (in ration) div
 export function ResumePreview({ previewData }) {
   return (
     <div className="a4Preview">
-      <PerDetailsBuilder
-        personalData={previewData[0]}
-        previewData={previewData}
-      />
+      <PerDetailsBuilder previewData={previewData} /> {/* Displays Personal Detail */}  
     </div>
   );
 }
 
-function PerDetailsBuilder({ personalData, previewData }) {
-  if (personalData?.children.length == 0) {
+function PerDetailsBuilder({ previewData }) {
+  if (!previewData["PER"]) {
     return null;
   }
 
-  let domObj = previewData[personalData?.children[0]];
-
+  let domObj = previewData["PER"];
   if (
     domObj.personName == "" &&
     domObj.personNumber == "" &&
@@ -31,7 +28,7 @@ function PerDetailsBuilder({ personalData, previewData }) {
 
       {(domObj.personEmail || domObj.personNumber) && (
         <div>
-          {domObj.personEmail && <p>{domObj.personEmail}</p>} 
+          {domObj.personEmail && <p>{domObj.personEmail}</p>}
           {<p>|</p>}
           {domObj.personNumber && <p>{domObj.personNumber}</p>}
         </div>
