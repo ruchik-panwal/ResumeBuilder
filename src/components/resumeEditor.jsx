@@ -1,7 +1,12 @@
 import { useState } from "react";
 import "/src/styles/resumeEditor.css";
 
-import { educationInputs, experienceInputs, projectInputs, skillInout } from "./mainData";
+import {
+  educationInputs,
+  experienceInputs,
+  projectInputs,
+  skillInput,
+} from "./mainData";
 
 // Creates Dom for all the Inputs and exports the main data to App.jsx which then transfer it to Preview Component
 export function ResumeEditor({ getResumeData, previewData }) {
@@ -71,7 +76,7 @@ export function ResumeEditor({ getResumeData, previewData }) {
         cName="skillsWrap"
         title={"Skills Details"}
         InUid={"SKI"}
-        inObj={skillInout}
+        inObj={skillInput}
         onBtnClick={printValueExp}
         getResumeData={getResumeData}
         previewData={previewData}
@@ -185,6 +190,7 @@ function WrapBuilder({
     setCompId(formIds);
     getResumeData(mainData);
   }
+
   return (
     <div className={cName}>
       <h1>{title}</h1>
@@ -236,6 +242,7 @@ function FormInpBuilder({
   onRmBtnClick,
 }) {
   const [value, setValue] = useState(Input);
+  const [hideState, setHideState] = useState(false);
 
   return (
     <form>
@@ -250,7 +257,22 @@ function FormInpBuilder({
         >
           Remove
         </button>
+
+        <button
+          className="hideForm"
+          onClick={(e) => {
+            e.preventDefault();
+            setHideState(() => {
+              if (hideState) return false;
+              return true;
+            });
+          }}
+        >
+          {hideState && <>Un Hide</>}
+          {!hideState && <>Hide</>}
+        </button>
       </div>
+
       {inpField.map((lab) => {
         const newID = uid + lab; // Creating a unique key
         return (
