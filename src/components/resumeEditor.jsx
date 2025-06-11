@@ -21,13 +21,37 @@ export function ResumeEditor({ getResumeData, previewData }) {
     getResumeData(newData);
   }
 
+  // Gets Data from Exp, Edu adn Project Forms
+  function printValueExp(val, id) {
+    console.log(val);
+    console.log(id);
+  }
+
   // Returning the data from the form
   return (
     <div className="resumeEditor">
       <Personal onBtnClick={printValue} />
-      <WrapBuilder cName="experienceWrap" title={"Experience Details"} uid={"exp1"} inObj = {experienceInputs}/>
-      <WrapBuilder cName="educationWrap" title={"Education Details"} uid={"ed1"} inObj = {educationInputs}/>
-      <WrapBuilder cName="projectsWrap" title={"Project Details"} uid={"pro1"} inObj = {projectInputs}/>
+      <WrapBuilder
+        cName="experienceWrap"
+        title={"Experience Details"}
+        uid={"exp1"}
+        inObj={experienceInputs}
+        onBtnClick={printValueExp}
+      />
+      <WrapBuilder
+        cName="educationWrap"
+        title={"Education Details"}
+        uid={"ed1"}
+        inObj={educationInputs}
+        onBtnClick={printValueExp}
+      />
+      <WrapBuilder
+        cName="projectsWrap"
+        title={"Project Details"}
+        uid={"pro1"}
+        inObj={projectInputs}
+        onBtnClick={printValueExp}
+      />
       {/* <Skills /> */}
     </div>
   );
@@ -109,36 +133,16 @@ function Personal({ onBtnClick }) {
   );
 }
 
-function WrapBuilder({ cName , title, uid, inObj }){
-  return <div className={cName}>
-    <h1>{title}</h1>
-    <FormInpBuilder uid={uid} inpField={Object.keys(inObj)} Input={inObj} />
-    <button>Add</button>
-  </div>
-}
-
-function Education() {
+// Builds the wrapper for Exp, Edu and project fields
+function WrapBuilder({ cName, title, uid, inObj, onBtnClick }) {
   return (
-    <div className="educationWrap">
-      <h1>Education Details</h1>
+    <div className={cName}>
+      <h1>{title}</h1>
       <FormInpBuilder
-        uid="ed1"
-        inpField={Object.keys(educationInputs)}
-        Input={educationInputs}
-      />
-      <button>Add</button>
-    </div>
-  );
-}
-
-function Projects() {
-  return (
-    <div className="projectsWrap">
-      <h1>Project Details</h1>
-      <FormInpBuilder
-        uid="p1"
-        inpField={Object.keys(projectInputs)}
-        Input={projectInputs}
+        uid={uid}
+        inpField={Object.keys(inObj)}
+        Input={inObj}
+        onBtnClick={onBtnClick} //referencing the function on parent Component
       />
       <button>Add</button>
     </div>
@@ -155,7 +159,7 @@ function inputChange(val, id, value) {
 }
 
 // Builds the DOM for exp, edu and project form
-function FormInpBuilder({ uid, inpField, Input }) {
+function FormInpBuilder({ uid, inpField, Input, onBtnClick }) {
   const [value, setValue] = useState(Input);
 
   return (
@@ -195,6 +199,8 @@ function FormInpBuilder({ uid, inpField, Input }) {
           type="submit"
           onClick={(e) => {
             e.preventDefault();
+            //Sends the value and first 3 letters of uid (i.e : exp1 -> exp) for identification
+            onBtnClick(value, uid.slice(0, 3));
           }}
         >
           Submit
