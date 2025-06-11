@@ -14,7 +14,8 @@
 .personalWrap,
 .experienceWrap,
 .educationWrap,
-.projectsWrap {
+.projectsWrap,
+.skillsWrap {
   border: solid;
   border-radius: 15px;
   border-width: 3px;
