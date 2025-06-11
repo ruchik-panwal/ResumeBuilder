@@ -43,21 +43,21 @@ export function ResumeEditor({ getResumeData, previewData }) {
       <WrapBuilder
         cName="experienceWrap"
         title={"Experience Details"}
-        uid={"EXP1"}
+        InUid={"EXP"}
         inObj={experienceInputs}
         onBtnClick={printValueExp}
       />
       <WrapBuilder
         cName="educationWrap"
         title={"Education Details"}
-        uid={"EDU1"}
+        InUid={"EDU"}
         inObj={educationInputs}
         onBtnClick={printValueExp}
       />
       <WrapBuilder
         cName="projectsWrap"
         title={"Project Details"}
-        uid={"PRO1"}
+        InUid={"PRO"}
         inObj={projectInputs}
         onBtnClick={printValueExp}
       />
@@ -147,18 +147,35 @@ function Personal({ onBtnClick }) {
 }
 
 // Builds the wrapper for Exp, Edu and project fields
-function WrapBuilder({ cName, title, uid, inObj, onBtnClick }) {
+function WrapBuilder({ cName, title, InUid, inObj, onBtnClick }) {
+  const [compId, setCompId] = useState([(InUid+0)]);
   return (
     <div className={cName}>
       <h1>{title}</h1>
-      <FormInpBuilder
-        uid={uid}
-        title={title + "1"}
-        inpField={Object.keys(inObj)}
-        Input={inObj}
-        onBtnClick={onBtnClick} //referencing the function on parent Component
-      />
-      <button>Add</button>
+
+      {compId.map((uid, ind) => {
+        return (
+          <FormInpBuilder
+            key={uid}
+            uid={uid}
+            title={title + (ind+1)}
+            inpField={Object.keys(inObj)}
+            Input={inObj}
+            onBtnClick={onBtnClick} //referencing the function on parent Component
+          />
+        );
+      })}
+
+      <button
+        onClick={(e) => {
+          e.preventDefault();
+            const tempId = [...compId];
+          tempId.push(InUid + compId.length);
+          setCompId(tempId);
+        }}
+      >
+        Add
+      </button>
     </div>
   );
 }
