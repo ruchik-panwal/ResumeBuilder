@@ -1,8 +1,7 @@
 
 export let mainData = {
   0: {
-    name: "personalDetails",
-    children: [],
+    name: "personalDetails"
   },
   1: {
     name: "experience",
