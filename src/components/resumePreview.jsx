@@ -4,8 +4,8 @@ import "/src/styles/resumePreview.css";
 export function ResumePreview({ previewData }) {
   return (
     <div className="a4Preview">
-      <PerDetailsBuilder previewData={previewData} />{" "}
-      {/* Displays Personal Detail */}
+      <PerDetailsBuilder previewData={previewData} />
+      <ExpBuilder previewData={previewData} />
     </div>
   );
 }
@@ -38,6 +38,34 @@ function PerDetailsBuilder({ previewData }) {
           {domObj.personNumber && <p>{domObj.personNumber}</p>}
         </div>
       )}
+    </div>
+  );
+}
+
+function ExpBuilder({ previewData }) {
+  const expChild = [...previewData[1].children];
+
+  if (!expChild.length) return null;
+
+  return (
+    <div className="experienceDetails">
+      <h3 className="detailsHeader">Work Experience</h3>
+
+      {expChild.map((child) => {
+        return (
+          <div className="workExp">
+            <div className="titleDateWrap">
+              <h3 className="jobTitle">{previewData[child]["Role"]}</h3>
+              <p className="jobLoc">I {previewData[child]["Company"]}</p>
+              <p className="date">{previewData[child]["StartDate"]} - {previewData[child]["EndDate"]}</p>
+            </div>
+            <ul className="description">
+              <li>hello</li>
+              <li>there</li>
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 }
