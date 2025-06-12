@@ -89,6 +89,11 @@ p.dash {
   flex-direction: column;
   gap: 0.7vh;
 }
+.hello{
+  display: flex;
+  flex-direction: column;
+  gap: 0.2vh;
+}
 
 .stackTitle{
   font-weight: 700;
