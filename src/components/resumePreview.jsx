@@ -68,9 +68,9 @@ function ExpBuilder({ previewData }) {
             </div>
 
             <ul className="description">
-              {previewData[child]["Description"].map((list, idx) => {
+              {/* {previewData[child]["Description"].map((list, idx) => {
                 return <li key={idx}>{list}</li>;
-              })}
+              })} */}
             </ul>
           </div>
         );
@@ -144,15 +144,16 @@ function SkiBuilder({ previewData }) {
   return (
     <div className="skiDetails">
       <h3 className="detailsHeader">Skills</h3>
-
-      {expChild.map((child, idx) => {
-        return (
-          <div key={idx} className="skill wraps">
-            <p className="stackTitle">{previewData[child]["Title"]}:</p>{" "}
-            <p className="skills">{previewData[child]["skills"]}</p>
-          </div>
-        );
-      })}
+      <div className="hello">
+        {expChild.map((child, idx) => {
+          return (
+            <div key={idx} className="skill wraps">
+              <p className="stackTitle">{previewData[child]["Title"]}:</p>{" "}
+              <p className="skills">{previewData[child]["skills"]}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
