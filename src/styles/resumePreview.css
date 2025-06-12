@@ -6,21 +6,21 @@
   margin: 10vh 5vw;
 }
 
-.personalDetails {
+.perDetails {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   margin: 2vh;
 }
-.personalDetails h1 {
+.perDetails h1 {
   font-family: sans-serif;
   font-size: 2.41vh;
 }
-.personalDetails p {
+.perDetails p {
   font-size: 1.25vh;
 }
-.personalDetails div {
+.perDetails div {
   display: flex;
   gap: 1vh;
 }
