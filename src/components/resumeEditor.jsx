@@ -97,7 +97,7 @@ function Personal({ onBtnClick }) {
   return (
     <form className="personalWrap">
       <h1>Personal Details</h1>
-      <div>
+      <div className="perInp">
         <label htmlFor="personName">Name: </label>
         <input
           type="text"
@@ -111,7 +111,7 @@ function Personal({ onBtnClick }) {
         />
       </div>
 
-      <div>
+      <div className="perInp">
         <label htmlFor="personEmail">Email: </label>
         <input
           type="email"
@@ -123,7 +123,7 @@ function Personal({ onBtnClick }) {
         />
       </div>
 
-      <div>
+      <div className="perInp">
         <label htmlFor="personNumber">Contact: </label>
         <input
           type="text"
@@ -137,6 +137,7 @@ function Personal({ onBtnClick }) {
 
       <div className="buttonWrap">
         <button
+          className="clearBtn"
           onClick={(e) => {
             e.preventDefault();
             // clears the state and puts defaulr
@@ -152,6 +153,7 @@ function Personal({ onBtnClick }) {
 
         <button
           type="submit"
+          className="saveBtn"
           onClick={(e) => {
             e.preventDefault();
             onBtnClick(value, "PER");
@@ -273,48 +275,56 @@ function FormInpBuilder({
         </button>
       </div>
 
-      {!hideState && inpField.map((lab) => {
-        const newID = uid + lab; // Creating a unique key
-        return (
-          <div key={newID}>
-            <label htmlFor={newID}>{lab} : </label>
-            <input
-              type="text"
-              id={newID}
-              className={lab}
-              value={value[lab] || ""}
-              onChange={(event) =>
-                setValue(
-                  inputChange(event.target.value, event.target.className, value)
-                )
-              }
-            ></input>
-          </div>
-        );
-      })}
+      {!hideState &&
+        inpField.map((lab) => {
+          const newID = uid + lab; // Creating a unique key
+          return (
+            <div key={newID} className="perInp">
+              <label htmlFor={newID}>{lab} : </label>
+              <input
+                type="text"
+                id={newID}
+                className={lab}
+                value={value[lab] || ""}
+                onChange={(event) =>
+                  setValue(
+                    inputChange(
+                      event.target.value,
+                      event.target.className,
+                      value
+                    )
+                  )
+                }
+              ></input>
+            </div>
+          );
+        })}
 
+      {!hideState && (
+        <div className="buttonWrap">
+          <button
+            className="clearBtn"
+            onClick={(e) => {
+              e.preventDefault();
+              setValue(Input);
+            }}
+          >
+            Clear All
+          </button>
 
-      <div className="buttonWrap">
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            setValue(Input);
-          }}
-        >
-          Clear All
-        </button>
-
-        <button
-          type="submit"
-          onClick={(e) => {
-            e.preventDefault();
-            //Sends the value and first 3 letters of uid (i.e : exp1 -> exp) for identification
-            onBtnClick(value, uid);
-          }}
-        >
-          Submit
-        </button>
-      </div>
+          <button
+            type="submit"
+            className="saveBtn"
+            onClick={(e) => {
+              e.preventDefault();
+              //Sends the value and first 3 letters of uid (i.e : exp1 -> exp) for identification
+              onBtnClick(value, uid);
+            }}
+          >
+            Submit
+          </button>
+        </div>
+      )}
     </form>
   );
 }
