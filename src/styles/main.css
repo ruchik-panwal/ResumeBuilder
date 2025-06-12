@@ -11,6 +11,7 @@ body{
     box-sizing: border-box;
     width: 100%;
     display: flex;
+    justify-content: center;
 }
 
 h1, 
@@ -20,4 +21,8 @@ h4,
 p{
     margin: 0;
     padding: 0;
+}
+
+button:hover{
+    cursor: pointer;
 }

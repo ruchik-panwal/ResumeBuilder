@@ -3,13 +3,18 @@
   aspect-ratio: 1 / 1.414;
   background-color: white;
 
+  position: sticky;
+  top: 10vh;
+
   box-sizing: border-box;
-  margin: 10vh 5vw;
+  margin: 10vh 0vw;
   padding: 2vh 2vw;
 
   display: flex;
   flex-direction: column;
   gap: 2vh;
+
+  overflow: scroll;
 }
 
 .a4Preview p {
@@ -65,7 +70,7 @@ p.dash {
   font-weight: 150;
 }
 
-.eduTWrap{
+.eduTWrap {
   justify-content: space-between;
 }
 
@@ -75,7 +80,7 @@ p.dash {
 }
 
 .workExp,
-.projWrap{
+.projWrap {
   display: flex;
   flex-direction: column;
   gap: 0.4vh;
@@ -89,12 +94,12 @@ p.dash {
   flex-direction: column;
   gap: 0.7vh;
 }
-.hello{
+.hello {
   display: flex;
   flex-direction: column;
   gap: 0.2vh;
 }
 
-.stackTitle{
+.stackTitle {
   font-weight: 700;
 }

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FaRegTrashAlt } from "react-icons/fa";
+import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
 import "/src/styles/resumeEditor.css";
 
 import {
@@ -202,7 +204,7 @@ function WrapBuilder({
           <FormInpBuilder
             key={uid}
             uid={uid}
-            title={title + (ind + 1)}
+            title={title + " " + (ind + 1)}
             inpField={Object.keys(inObj)}
             Input={inObj}
             onBtnClick={onBtnClick} //referencing the function on parent Component
@@ -212,6 +214,7 @@ function WrapBuilder({
       })}
 
       <button
+        className="addBtn"
         onClick={(e) => {
           e.preventDefault();
           const tempId = [...compId];
@@ -244,10 +247,10 @@ function FormInpBuilder({
   onRmBtnClick,
 }) {
   const [value, setValue] = useState(Input);
-  const [hideState, setHideState] = useState(false);
+  const [hideState, setHideState] = useState(true);
 
   return (
-    <form>
+    <form className="forms">
       <div className="formHeader">
         <h2 className="formTitle">{title}</h2>
         <button
@@ -257,7 +260,7 @@ function FormInpBuilder({
             onRmBtnClick(uid);
           }}
         >
-          Remove
+          <FaRegTrashAlt />
         </button>
 
         <button
@@ -270,8 +273,8 @@ function FormInpBuilder({
             });
           }}
         >
-          {hideState && <>Un Hide</>}
-          {!hideState && <>Hide</>}
+          {hideState && <IoIosArrowDropdown />}
+          {!hideState && <IoIosArrowDropup />}
         </button>
       </div>
 
@@ -319,6 +322,10 @@ function FormInpBuilder({
               e.preventDefault();
               //Sends the value and first 3 letters of uid (i.e : exp1 -> exp) for identification
               onBtnClick(value, uid);
+              setHideState(() => {
+                if (hideState) return false;
+                return true;
+              });
             }}
           >
             Submit
