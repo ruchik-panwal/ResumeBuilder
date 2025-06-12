@@ -57,17 +57,20 @@ function ExpBuilder({ previewData }) {
       {expChild.map((child, idx) => {
         return (
           <div key={idx} className="workExp">
-            <div className="titleDateWrap">
-              <h3 className="jobTitle">{previewData[child]["Role"]}</h3>
-              <p className="jobLoc">I {previewData[child]["Company"]}</p>
+            <div className="titleDateWrap wraps">
+              <h3 className="mainTitle">{previewData[child]["Role"]}</h3>
+              <p className="dash"> I </p>
+              <p className="jobLoc">{previewData[child]["Company"]}</p>
               <p className="date">
                 {previewData[child]["StartDate"]} -{" "}
                 {previewData[child]["EndDate"]}
               </p>
             </div>
+
             <ul className="description">
-              <li>hello</li>
-              <li>there</li>
+              {previewData[child]["Description"].map((list, idx) => {
+                return <li key={idx}>{list}</li>;
+              })}
             </ul>
           </div>
         );
@@ -88,17 +91,16 @@ function EduBuilder({ previewData }) {
       {expChild.map((child, idx) => {
         return (
           <div key={idx} className="education">
-            <div className="edutitleLocWrap">
-              <h3 className="jobTitle">{previewData[child]["Institute"]}</h3>
-              <p className="jobLoc">I {previewData[child]["Location"]}</p>
-              <p className="date">
-                {previewData[child]["StartDate"]} -{" "}
-                {previewData[child]["EndDate"]}
-              </p>
+            <div className="eduTWrap wraps">
+              <h3 className="mainTitle">{previewData[child]["Institute"]}</h3>
+              <p className="jobLoc">{previewData[child]["Location"]}</p>
             </div>
 
             <p className="degree">{previewData[child]["Degree"]}</p>
-            <p className="year">{previewData[child]["Year"]}</p>
+            <p className="year">
+              {previewData[child]["Year"]} ({previewData[child]["StartDate"]} -{" "}
+              {previewData[child]["EndDate"]})
+            </p>
           </div>
         );
       })}
@@ -117,10 +119,11 @@ function ProBuilder({ previewData }) {
 
       {expChild.map((child, idx) => {
         return (
-          <div key={idx} className="education">
-            <div className="projectWraps">
-              <h3 className="jobTitle">{previewData[child]["Title"]}</h3>
-              <p className="jobLoc">I {previewData[child]["TechStack"]}</p>
+          <div key={idx} className="projWrap">
+            <div className="ed wraps">
+              <h3 className="mainTitle">{previewData[child]["Title"]}</h3>
+              <p className="dash"> I </p>
+              <p className="jobLoc">{previewData[child]["TechStack"]}</p>
             </div>
             <ul className="description">
               <li>ffefw</li>
@@ -139,13 +142,14 @@ function SkiBuilder({ previewData }) {
   if (!expChild.length) return null;
 
   return (
-    <div className="proDetails">
-      <h3 className="detailsHeader">Projects</h3>
+    <div className="skiDetails">
+      <h3 className="detailsHeader">Skills</h3>
 
       {expChild.map((child, idx) => {
         return (
-          <div key={idx} className="education">
-            <h4 className="stackTitle">{previewData[child]["Title"]}</h4> : <p className="skills">{previewData[child]["skills"]}</p>
+          <div key={idx} className="skill wraps">
+            <p className="stackTitle">{previewData[child]["Title"]}:</p>{" "}
+            <p className="skills">{previewData[child]["skills"]}</p>
           </div>
         );
       })}
