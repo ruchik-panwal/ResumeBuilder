@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Notable&display=swap');
+
+.headerHolder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mainHeader{
+    font-family: "Notable";
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.mainHeader h1{
+    font-size: 3rem;
+    text-align: center;
+}
+.headerBtn{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+a{
+    all: unset;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.printBtn,
+.gitBtn{
+    width: 120px;
+    height: 25px;
+    font-size: 0.9rem;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+.printBtn{
+    background-color: #259dff;
+}.gitBtn{
+    background-color: rgb(172, 12, 204);
+}
