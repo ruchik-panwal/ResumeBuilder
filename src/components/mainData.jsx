@@ -1,23 +1,21 @@
-
 export let mainData = {
   1: {
-    name: "experience",
+    name: "EXP",
     children: [],
   },
   2: {
-    name: "education",
+    name: "EDU",
     children: [],
   },
   3: {
-    name: "projects",
+    name: "PRO",
     children: [],
   },
   4: {
-    name: "skills",
+    name: "SKI",
     children: [],
   },
 };
-
 
 export const educationInputs = {
   Institute: "",
