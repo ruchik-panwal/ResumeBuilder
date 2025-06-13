@@ -45,7 +45,6 @@ export function ResumeEditor({ getResumeData, previewData }) {
   return (
     <div className="resumeEditor">
       <Header />
-
       {/* creating and getting personal Data */}
       <Personal onBtnClick={printValueExp} />
 
@@ -182,18 +181,41 @@ function WrapBuilder({
   getResumeData,
   previewData,
 }) {
+  // This state remembers every input forms
   const [compId, setCompId] = useState([InUid + 0]);
 
+  // This Removes the form when clicked the delete button
   function rmForm(formId) {
+    // Every Category of form
+    const indexObj = {
+      1: "EXP",
+      2: "EDU",
+      3: "PRO",
+      4: "SKI",
+    };
+
+    let iden = ""; //Will be "EXP1" / "PRO3" etc
+
+    // If the form to be deleted is EXP2.. it will make iden = 1... which is the index of exp in main data
+    Object.keys(indexObj).forEach((ind) => {
+      if (formId.slice(0, 3) == indexObj[ind]) iden = "" + ind;
+    });
+
     let formIds = [...compId];
     let mainData = { ...previewData };
 
     formIds.forEach((id, index) => {
       if (formId == id) {
-        formIds.splice(index, 1);
-        delete mainData[id];
+        // Removing the child from the children array
+        mainData[iden].children = mainData[iden].children.filter(
+          (element) => element !== id
+        );
+        formIds.splice(index, 1); //Removing from the use state
+        delete mainData[id]; //deleting from main object
       }
     });
+
+    // setting values
     setCompId(formIds);
     getResumeData(mainData);
   }
@@ -323,7 +345,6 @@ function FormInpBuilder({
             className="saveBtn"
             onClick={(e) => {
               e.preventDefault();
-              //Sends the value and first 3 letters of uid (i.e : exp1 -> exp) for identification
               onBtnClick(value, uid);
               setHideState(() => {
                 if (hideState) return false;
