@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { IoIosArrowDropdown, IoIosArrowDropup } from "react-icons/io";
+import { Header } from "./header";
 import "/src/styles/resumeEditor.css";
 
 import {
@@ -43,6 +44,8 @@ export function ResumeEditor({ getResumeData, previewData }) {
   // Returning the data from the form
   return (
     <div className="resumeEditor">
+      <Header />
+
       {/* creating and getting personal Data */}
       <Personal onBtnClick={printValueExp} />
 
