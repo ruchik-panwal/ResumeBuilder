@@ -275,9 +275,9 @@ function FormInpBuilder({
   const [hideState, setHideState] = useState(true);
 
   function getdesValue(desVal) {
-    let newVal = {...value};
+    let newVal = { ...value };
     newVal["Description"] = desVal;
-    setValue(newVal)
+    setValue(newVal);
   }
 
   return (
@@ -403,13 +403,14 @@ function DescriptionBuilder({ className, newId, desVal }) {
 
   return (
     <div className={className}>
-      <p className="desLabel">Description</p>
+      <p className="desLabel">Description :</p>
       {desArr.map((item, i) => (
         <div key={i} className="desInpWrap">
           <input
             type="text"
             value={item}
             className="desInp"
+            placeholder="Bullet"
             onChange={(event) => {
               DesInp(event.target.value, i);
             }}
@@ -420,12 +421,12 @@ function DescriptionBuilder({ className, newId, desVal }) {
               className="rmDes"
               onClick={() => removeBullet(i)}
             >
-              Remove
+              X
             </button>
           )}
         </div>
       ))}
-      <button type="button" onClick={addBullet}>
+      <button type="button" className={"addBullet"} onClick={addBullet}>
         Add Bullet
       </button>
     </div>
