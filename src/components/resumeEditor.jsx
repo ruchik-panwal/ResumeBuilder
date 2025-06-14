@@ -405,10 +405,11 @@ function DescriptionBuilder({ className, newId, desVal }) {
     <div className={className}>
       <p className="desLabel">Description</p>
       {desArr.map((item, i) => (
-        <div key={i}>
+        <div key={i} className="desInpWrap">
           <input
             type="text"
             value={item}
+            className="desInp"
             onChange={(event) => {
               DesInp(event.target.value, i);
             }}
