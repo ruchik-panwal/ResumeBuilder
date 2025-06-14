@@ -19,7 +19,7 @@ function DesPre({ desArray }) {
 
   return desArray
     .filter((description) => description.trim() !== "") //Remove empty elements
-    .map((description, i) => <li key={i}>{description}</li>);
+    .map((description, i) => <li className= {"desLi"} key={i}>{description}</li>);
 }
 
 // Function for displaying Personal Details

@@ -23,8 +23,10 @@
 ul {
   padding: 0;
   margin: 0;
-  font-size: 1.18vh;
-  list-style-position: inside;
+}
+li{
+font-size: 1.18vh;
+list-style-position: inside;
 }
 
 /* Personal Details */

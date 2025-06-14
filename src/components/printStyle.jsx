@@ -48,7 +48,9 @@ export const printStyle = `
   ul {
     padding: 0;
     margin: 0;
-    font-size: 15px;
+  }
+  li{
+    font-size: 1.18vh;
     list-style-position: inside;
   }
 
