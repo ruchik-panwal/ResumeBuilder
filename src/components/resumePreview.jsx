@@ -13,6 +13,15 @@ export function ResumePreview({ previewData }) {
   );
 }
 
+// Builds list for Description
+function DesPre({ desArray }) {
+  if (!desArray) return null; //Remove undefined array
+
+  return desArray
+    .filter((description) => description.trim() !== "") //Remove empty elements
+    .map((description, i) => <li key={i}>{description}</li>);
+}
+
 // Function for displaying Personal Details
 function PerDetailsBuilder({ previewData }) {
   // If there is no Personal Detail filled yet, Return nothing
@@ -55,6 +64,10 @@ function ExpBuilder({ previewData }) {
       <h3 className="detailsHeader">Work Experience</h3>
 
       {expChild.map((child, idx) => {
+        let desArr = Array.isArray(previewData[child]["Description"])
+          ? [...previewData[child]["Description"]]
+          : [];
+
         return (
           <div key={idx} className="workExp">
             <div className="titleDateWrap wraps">
@@ -66,11 +79,8 @@ function ExpBuilder({ previewData }) {
                 {previewData[child]["EndDate"]}
               </p>
             </div>
-
             <ul className="description">
-              {/* {previewData[child]["Description"].map((list, idx) => {
-                return <li key={idx}>{list}</li>;
-              })} */}
+              <DesPre desArray={desArr} />
             </ul>
           </div>
         );
@@ -118,6 +128,10 @@ function ProBuilder({ previewData }) {
       <h3 className="detailsHeader">Projects</h3>
 
       {expChild.map((child, idx) => {
+        let desArr = Array.isArray(previewData[child]["Description"])
+          ? [...previewData[child]["Description"]]
+          : [];
+
         return (
           <div key={idx} className="projWrap">
             <div className="ed wraps">
@@ -125,9 +139,9 @@ function ProBuilder({ previewData }) {
               <p className="dash"> I </p>
               <p className="jobLoc">{previewData[child]["TechStack"]}</p>
             </div>
+            <DesPre desArray={desArr} />
             <ul className="description">
-              <li>ffefw</li>
-              <li>dsfwf</li>
+              
             </ul>
           </div>
         );
