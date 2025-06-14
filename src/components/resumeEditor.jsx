@@ -274,6 +274,12 @@ function FormInpBuilder({
   const [value, setValue] = useState(Input);
   const [hideState, setHideState] = useState(true);
 
+  function getdesValue(desVal) {
+    let newVal = {...value};
+    newVal["Description"] = desVal;
+    setValue(newVal)
+  }
+
   return (
     <form className="forms">
       <div className="formHeader">
@@ -306,26 +312,38 @@ function FormInpBuilder({
       {!hideState &&
         inpField.map((lab) => {
           const newID = uid + lab; // Creating a unique key
-          return (
-            <div key={newID} className="perInp">
-              <label htmlFor={newID}>{lab} : </label>
-              <input
-                type="text"
-                id={newID}
-                className={lab}
-                value={value[lab] || ""}
-                onChange={(event) =>
-                  setValue(
-                    inputChange(
-                      event.target.value,
-                      event.target.className,
-                      value
+
+          if (lab != "Description") {
+            return (
+              <div key={newID} className="perInp">
+                <label htmlFor={newID}>{lab} : </label>
+                <input
+                  type="text"
+                  id={newID}
+                  className={lab}
+                  value={value[lab] || ""}
+                  onChange={(event) =>
+                    setValue(
+                      inputChange(
+                        event.target.value,
+                        event.target.className,
+                        value
+                      )
                     )
-                  )
-                }
-              ></input>
-            </div>
-          );
+                  }
+                ></input>
+              </div>
+            );
+          } else {
+            return (
+              <DescriptionBuilder
+                key={newID}
+                newId={newID}
+                desVal={getdesValue}
+                className="perInp"
+              />
+            );
+          }
         })}
 
       {!hideState && (
@@ -359,3 +377,58 @@ function FormInpBuilder({
     </form>
   );
 }
+
+// Makes Description as a Bullets
+function DescriptionBuilder({ className, newId, desVal }) {
+  const [desArr, setDesArr] = useState([""]);
+
+  function DesInp(val, id) {
+    const tempArr = [...desArr];
+    tempArr[id] = val;
+    setDesArr(tempArr);
+    desVal(tempArr, newId);
+  }
+
+  function addBullet() {
+    const updated = [...desArr, ""];
+    setDesArr(updated);
+    desVal(updated, newId);
+  }
+
+  function removeBullet(index) {
+    const updated = desArr.filter((_, i) => i !== index);
+    setDesArr(updated);
+    desVal(updated, newId);
+  }
+
+  return (
+    <div className={className}>
+      <p className="desLabel">Description</p>
+      {desArr.map((item, i) => (
+        <div key={i}>
+          <input
+            type="text"
+            value={item}
+            onChange={(event) => {
+              DesInp(event.target.value, i);
+            }}
+          />
+          {desArr.length > 1 && (
+            <button
+              type="button"
+              className="rmDes"
+              onClick={() => removeBullet(i)}
+            >
+              Remove
+            </button>
+          )}
+        </div>
+      ))}
+      <button type="button" onClick={addBullet}>
+        Add Bullet
+      </button>
+    </div>
+  );
+}
+
+export default DescriptionBuilder;
